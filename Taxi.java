@@ -43,6 +43,8 @@ public class Taxi extends Main {
             } else {
                 System.out.println("최대 승객 수 초과");
             }
+        } else {
+            System.out.println("승객이 이용중입니다. 탑승 불가 합니다.");
         }
     }
 
