@@ -17,13 +17,45 @@ public class Main {
 
             switch (i) {
                 case 1:
-                    Bus bus = new Bus(fuel, speed);
-                    bus.bus();
-                    break;
+                    Bus bus1 = new Bus(fuel, speed);
+                    Bus bus2 = new Bus(fuel, speed);
+                    Scanner scan1 = new Scanner(System.in);
+
+                    int j;
+                    int choose1 = 1;
+
+                    while (choose1 != 0) {
+                        System.out.println("\n\n1. 1번 버스\n2. 2번 버스");
+                        j = scan1.nextInt();
+                        switch (j) {
+                            case 1:
+                                bus1.bus();
+                                break;
+                            case 2:
+                                bus2.bus();
+                                break;
+                        }
+                    }
                 case 2:
-                    Taxi taxi = new Taxi(fuel, speed);
-                    taxi.taxi();
-                    break;
+                    Taxi taxi1 = new Taxi(fuel, speed);
+                    Taxi taxi2 = new Taxi(fuel, speed);
+                    Scanner scan2 = new Scanner(System.in);
+
+                    int k;
+                    int choose2 = 1;
+
+                    while (choose2 != 0) {
+                        System.out.println("\n\n1. 1번 택시\n2. 2번 택시");
+                        k = scan2.nextInt();
+                        switch (k) {
+                            case 1:
+                                taxi1.taxi();
+                                break;
+                            case 2:
+                                taxi2.taxi();
+                                break;
+                        }
+                    }
                 case 0:
                     choose = 0;
                     break;
