@@ -32,16 +32,17 @@ public class Taxi extends Main {
     }
 
     public void taxi3(int i) {
-        if (this.maxPeople - i >= 0) {
-            this.inPeople += i;
-            this.maxPeople -= i;
-            this.currentCost = cost * i;
-            if ( this.inPeople >= 1) {
-                this.state = "운행중";
+        if( this.state == "일반") {
+            if (this.maxPeople - i >= 0) {
+                this.inPeople += i;
+                this.maxPeople -= i;
+                this.currentCost = cost * i;
+                if (this.inPeople >= 1) {
+                    this.state = "운행중";
+                }
+            } else {
+                System.out.println("최대 승객 수 초과");
             }
-        } else {
-            System.out.println("최대 승객 수 초과");
-            this.state = "탑승 불가";
         }
     }
 
@@ -52,6 +53,9 @@ public class Taxi extends Main {
     public void taxi5(int i) {
         if (this.fuel + i >= 0) {
             this.fuel += i;
+            if ( this.state == "운행 불가" && this.fuel >=10 ){
+                this.state = "일반";
+            }
             if (this.fuel < 10) {
                 System.out.println("주유량이 10미만 입니다. 주유가 필요합니다.\n운행이 불가합니다.");
                 this.state = "운행 불가";
@@ -74,6 +78,10 @@ public class Taxi extends Main {
         }
     }
 
+    public void taxi8(int i) {
+
+    }
+
     public void taxi() {
         Scanner scan = new Scanner(System.in);
 
@@ -82,7 +90,7 @@ public class Taxi extends Main {
         String str;
 
         while (choose != 0) {
-            System.out.println("\n\n1. 상태 확인\n2. 상태 변경\n3. 승객 탑승\n4. 목적지 명 설정\n5. 목적지까지 거리 설정\n6. 속도 변경\n7. 주유\n0. 종료");
+            System.out.println("\n\n1. 상태 확인\n2. 상태 변경\n3. 승객 탑승\n4. 목적지 명 설정\n5. 목적지까지 거리 설정\n6. 요금 결제\n7. 속도 변경\n8. 주유\n0. 종료");
             i = scan.nextInt();
             switch (i) {
                 case 1:
@@ -121,11 +129,28 @@ public class Taxi extends Main {
                     taxi7(i);
                     break;
                 case 6:
+                    System.out.print("손님이 요금을 결제하셨습니다.\n" + "결제 요금: " + currentCost + "\n" + "현재 주유량: " + fuel);
+                    inPeople  = 0;
+                    if ( inPeople == 0 ) {
+                        if ( fuel >= 10 ) {
+                            state = "일반";
+                        } else {
+                            state = "운행 불가";
+                        }
+                    }
+                    maxPeople = 4;
+                    destination = "";
+                    finalDistance = 0;
+                    basicCost = 3000;
+                    currentCost = 0;
+                    speed = 0;
+                    break;
+                case 7:
                     System.out.print("속도 변경 : ( 올리려면 +, 늦추려면 - 를 붙여주세요 )  ");
                     i = scan.nextInt();
                     taxi4(i);
                     break;
-                case 7:
+                case 8:
                     System.out.print("주유량 = ( 더하려면 +, 빼려면 - 를 붙여주세요 )  ");
                     i = scan.nextInt();
                     taxi5(i);
